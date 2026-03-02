@@ -29,12 +29,16 @@
   }
 
   var AWARDS = [
-    { isClutch: true,  title: 'Top B2B',    desc: 'Providers in the Indian Emerging Tech Market for 2021' },
-    { isClutch: false, title: 'Top Shopify', desc: 'Development Companies in 2019' },
-    { isClutch: true,  title: 'Top 12',      desc: 'out of 400 top Mobile App Developers in India, 2020' },
-    { isClutch: true,  title: 'Top IT',      desc: 'Consulting Firms in South Asia, 2022' },
-    { isClutch: false, title: 'Top Web Dev', desc: 'Development Agencies Globally, 2021' },
-    { isClutch: true,  title: 'Top UX',      desc: 'Design Studios in India for 2023' }
+    { type: 'clutch',       title: 'Top B2B',    desc: 'Providers in the Indian Emerging Tech Market for 2021' },
+    { type: 'goodfirms',   title: 'Top Shopify', desc: 'Development Companies in 2019' },
+    { type: 'clutch',       title: 'Top 12',      desc: 'Out of 400 top Mobile App Developers in India, 2020' },
+    { type: 'clutch',       title: 'Top IT',      desc: 'Consulting Firms in South Asia, 2022' },
+    { type: 'goodfirms',   title: 'Top Web Dev', desc: 'Development Agencies Globally, 2021' },
+    { type: 'clutch',       title: 'Top UX',      desc: 'Design Studios in India for 2023' },
+    { type: 'crowdreviews', title: '#1',          desc: 'ASP.NET Development Company' },
+    { type: 'crowdreviews', title: 'Top 3',       desc: 'E-Commerce Development Company' },
+    { type: 'crowdreviews', title: 'Top 10',      desc: 'Web Development Company' },
+    { type: 'clutch',       title: 'Top 1000',    desc: 'B2B Companies 2018' }
   ];
   var awardCursors = {};
 
@@ -45,17 +49,23 @@
     return award;
   }
 
-  var CLUTCH_SVG = '<svg class="clutch-svg" viewBox="0 0 90 26" xmlns="http://www.w3.org/2000/svg"><text x="0" y="22" font-size="24" font-weight="900" fill="#fff" font-family="Georgia,serif" letter-spacing="-0.5">Clutch</text></svg>';
-  var GF_SVG     = '<svg class="gf-icon" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"><rect width="28" height="28" rx="5" fill="#fff"/><text x="4" y="22" font-size="19" font-weight="900" fill="#6637c5" font-family="Arial,sans-serif">G</text></svg>';
+  var CLUTCH_IMG = '<img src="Images/Group 27.svg" alt="Clutch" class="award-logo-img">';
+  var GF_IMG     = '<img src="Images/image 9.svg" alt="GoodFirms" class="award-logo-img">';
+  var CR_LOGO    = '<span class="t-brand--cr"><span class="cr-crowd">Crowd</span><span class="cr-reviews">Reviews</span><br><span class="cr-sub">Buyers Guide Based On Your Reviews</span></span>';
 
   function buildAwardHTML(award) {
-    if (award.isClutch) {
-      return '<span class="t-brand">' + CLUTCH_SVG + '</span>'
+    if (award.type === 'clutch') {
+      return '<span class="t-brand">' + CLUTCH_IMG + '</span>'
            + '<span class="t-stars">★★★★★</span>'
            + '<strong class="t-title">' + award.title + '</strong>'
            + '<span class="t-desc">' + award.desc + '</span>';
+    } else if (award.type === 'goodfirms') {
+      return '<span class="t-brand t-brand--gf">' + GF_IMG + '</span>'
+           + '<strong class="t-title">' + award.title + '</strong>'
+           + '<span class="t-desc">' + award.desc + '</span>';
     } else {
-      return '<span class="t-brand t-brand--gf">' + GF_SVG + 'GoodFirms</span>'
+      // CrowdReviews
+      return CR_LOGO
            + '<strong class="t-title">' + award.title + '</strong>'
            + '<span class="t-desc">' + award.desc + '</span>';
     }
@@ -241,12 +251,17 @@
     }
   }
 
-  document.addEventListener('DOMContentLoaded', function () {
-    setTimeout(function () {
-      enableTransitions();
-      startWaves();
-    }, LOAD_SETTLE);
-  });
+//   document.addEventListener('DOMContentLoaded', function () {
+//     setTimeout(function () {
+//       enableTransitions();
+//       startWaves();
+//     }, LOAD_SETTLE);
+//   });
+
+window.addEventListener('load', function () {
+    enableTransitions();
+    startWaves();
+});
 
   // Restart waves on resize (e.g. orientation change)
   var _resizeTimer;
@@ -399,14 +414,10 @@ $(document).ready(function() {
 
     // Initial state for animations
     $('.portfolio-item').css({
-        'opacity': '0',
-        'transform': 'translateY(30px)',
-        'transition': 'all 0.6s ease-out'
+       'transition': 'all 0.6s ease-out'
     });
 
     $('.team-photo').css({
-        'opacity': '0',
-        'transform': 'scale(0.9)',
         'transition': 'all 0.5s ease-out'
     });
 
@@ -429,7 +440,11 @@ $(document).ready(function() {
     // });
 
     // Trigger animations on page load
-    setTimeout(animateOnScroll, 300);
+    // setTimeout(animateOnScroll, 300);
+
+    $(window).on('load', function() {
+    animateOnScroll();
+});
 
     // ========== DROPDOWN MENU (DESKTOP) ==========
     if ($(window).width() > 1023) {

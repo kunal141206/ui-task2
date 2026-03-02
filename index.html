@@ -9,14 +9,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- Preload mobile slider background images to prevent blank-on-first-load -->
-    <link rel="preload" as="image" href="Images/top_software_experts-_services.webp">
-    <link rel="preload" as="image" href="Images/top_software_experts_services_near_me.webp">
-    <link rel="preload" as="image" href="Images/best_software_experts_near_me.webp">
-    <link rel="preload" as="image" href="Images/best_software_expert_services_near_me.webp">
-    <link rel="preload" as="image" href="Images/top_it_consulting_agency.webp">
-    <link rel="preload" as="image" href="Images/best_it_consulting_agency.webp">
-    <link rel="preload" as="image" href="Images/best_it_consulting_services.webp">
-    <link rel="preload" as="image" href="Images/top_it_consulting_services.webp">
+    <link rel="preload" as="image" href="Images/top_software_experts-_services.webp" type="image/webp">
+    <link rel="preload" as="image" href="Images/top_software_experts_services_near_me.webp" type="image/webp">
+    <link rel="preload" as="image" href="Images/best_software_experts_near_me.webp" type="image/webp">
+    <link rel="preload" as="image" href="Images/best_software_expert_services_near_me.webp" type="image/webp">
+    <link rel="preload" as="image" href="Images/top_it_consulting_agency.webp" type="image/webp">
+    <link rel="preload" as="image" href="Images/best_it_consulting_agency.webp" type="image/webp">
+    <link rel="preload" as="image" href="Images/best_it_consulting_services.webp" type="image/webp">
+    <link rel="preload" as="image" href="Images/top_it_consulting_services.webp" type="image/webp">
 </head>
 <body>
     <div class="menu-overlay" id="menuOverlay"></div>
@@ -62,16 +62,16 @@
             <div class="hero-badges desktop-badges">
                 <div class="badge-grid">
 
-                    <!-- COL 1, ROW 1-2: Transform label (spans 2 rows) -->
+                    <!-- ROW 1, COL 1: Transform label (lavender) -->
                     <div class="badge-cell tile-label tile-transform" data-tiletype="label" data-tilekey="transform">
                         <div class="tile-inner"><span class="label-text">Transform</span></div>
                     </div>
 
-                    <!-- COL 2, ROW 1: Clutch Top B2B -->
+                    <!-- ROW 1, COL 2: Clutch Top B2B (dark) -->
                     <div class="badge-cell tile-award tile-clutch1" data-tiletype="award" data-tilekey="clutch1">
                         <div class="tile-inner">
                             <span class="t-brand">
-                                <svg class="clutch-svg" viewBox="0 0 90 26" xmlns="http://www.w3.org/2000/svg"><text x="0" y="22" font-size="24" font-weight="900" fill="#fff" font-family="Georgia,serif" letter-spacing="-0.5">Clutch</text></svg>
+                                <img src="Images/Group 27.svg" alt="Clutch" class="award-logo-img">
                             </span>
                             <span class="t-stars">★★★★★</span>
                             <strong class="t-title">Top B2B</strong>
@@ -79,83 +79,62 @@
                         </div>
                     </div>
 
-                    <!-- COL 3, ROW 1: Convert label -->
+                    <!-- ROW 1, COL 3: Convert label (medium purple) -->
                     <div class="badge-cell tile-label tile-convert" data-tiletype="label" data-tilekey="convert">
                         <div class="tile-inner"><span class="label-text">Convert</span></div>
                     </div>
 
-                    <!-- COL 4, ROW 1: GoodFirms Top Shopify -->
+                    <!-- ROW 1, COL 4: GoodFirms Top Shopify (medium purple, top-right rounded) -->
                     <div class="badge-cell tile-award tile-goodfirms" data-tiletype="award" data-tilekey="goodfirms">
                         <div class="tile-inner">
                             <span class="t-brand t-brand--gf">
-                                <svg class="gf-icon" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"><rect width="28" height="28" rx="5" fill="#fff"/><text x="4" y="22" font-size="19" font-weight="900" fill="#6637c5" font-family="Arial,sans-serif">G</text></svg>
-                                GoodFirms
+                                <img src="Images/image 9.svg" alt="GoodFirms" class="award-logo-img">
                             </span>
                             <strong class="t-title">Top Shopify</strong>
                             <span class="t-desc">Development Companies in 2019</span>
                         </div>
                     </div>
 
-                    <!-- COL 2, ROW 2: Attract label (col 1 still occupied) -->
-                    <div class="badge-cell tile-filler tile-filler2" data-tiletype="filler">
-                        <!-- <div class="tile-inner"></div> -->
-                    </div>
+                    <!-- ROW 2, COL 1: dark filler -->
+                    <div class="badge-cell tile-filler tile-filler2" data-tiletype="filler"></div>
 
-                     <div class="badge-cell tile-label tile-growth" data-tiletype="label" data-tilekey="growth">
-                        <div class="tile-inner"><span class="label-text">Growth</span></div>
-                    </div>
-
-
-                    <!-- COL 3, ROW 2: Microsoft Solutions Partner (lavender) -->
-                    <div class="badge-cell tile-microsoft" data-tiletype="microsoft">
-                        <div class="tile-inner">
-                            <div class="ms-logo-row">
-                                <div class="ms-squares-lg">
-                                    <span style="background:#f25022"></span>
-                                    <span style="background:#7fba00"></span>
-                                    <span style="background:#00a4ef"></span>
-                                    <span style="background:#ffb900"></span>
-                                </div>
-                                <div class="ms-text">
-                                    <p class="ms-name">Microsoft</p>
-                                    <p class="ms-role">Solutions Partner</p>
-                                </div>
-                            </div>
-                            <p class="ms-cloud">Microsoft Cloud</p>
-                        </div>
-                    </div>
-
-                    <!-- COL 4, ROW 2: Growth label -->
-                   
-                    <!-- ROW 3, COL 1: dark filler -->
-                    <div class="badge-cell tile-label tile-strategy" data-tiletype="label" data-tilekey="strategy">
-                        <div class="tile-inner"><span class="label-text">Strategy</span></div>
-                    </div>
-
-                    <!-- ROW 3, COL 2: Strategy label -->
-                    <div class="badge-cell tile-label tile-strategy" data-tiletype="filler" >
-                        <!-- <div class="tile-inner"></div> -->
-                    </div>
-
-                    <!-- ROW 3, COL 3: dark filler -->
-                    
-                     <div class="badge-cell tile-filler tile-filler2" data-tiletype="filler">
-                        <!-- <div class="tile-inner"></div> -->
-                    </div>
-
+                    <!-- ROW 2, COL 2: Attract label (dark) -->
                     <div class="badge-cell tile-label tile-attract" data-tiletype="label" data-tilekey="attract">
                         <div class="tile-inner"><span class="label-text">Attract</span></div>
                     </div>
 
-                    <!-- ROW 3, COL 4: Clutch Top 12 -->
+                    <!-- ROW 2, COL 3: Microsoft Solutions Partner (lavender) -->
+                    <div class="badge-cell tile-microsoft" data-tiletype="microsoft">
+                        <div class="tile-inner">
+                            <img src="Images/Group 40.svg" alt="Microsoft Solutions Partner" class="ms-logo-img">
+                        </div>
+                    </div>
+
+                    <!-- ROW 2, COL 4: Growth label (medium purple) -->
+                    <div class="badge-cell tile-label tile-growth" data-tiletype="label" data-tilekey="growth">
+                        <div class="tile-inner"><span class="label-text">Growth</span></div>
+                    </div>
+
+                    <!-- ROW 3, COL 1: dark filler -->
+                    <div class="badge-cell tile-filler tile-filler2" data-tiletype="filler"></div>
+
+                    <!-- ROW 3, COL 2: dark filler -->
+                    <div class="badge-cell tile-filler tile-filler2" data-tiletype="filler"></div>
+
+                    <!-- ROW 3, COL 3: Strategy label (medium purple) -->
+                    <div class="badge-cell tile-label tile-strategy" data-tiletype="label" data-tilekey="strategy">
+                        <div class="tile-inner"><span class="label-text">Strategy</span></div>
+                    </div>
+
+                    <!-- ROW 3, COL 4: Clutch Top 12 (dark, bottom-right rounded) -->
                     <div class="badge-cell tile-award tile-clutch2" data-tiletype="award" data-tilekey="clutch2">
                         <div class="tile-inner">
                             <span class="t-brand">
-                                <svg class="clutch-svg" viewBox="0 0 90 26" xmlns="http://www.w3.org/2000/svg"><text x="0" y="22" font-size="24" font-weight="900" fill="#fff" font-family="Georgia,serif" letter-spacing="-0.5">Clutch</text></svg>
+                                <img src="Images/Group 27.svg" alt="Clutch" class="award-logo-img">
                             </span>
                             <span class="t-stars">★★★★★</span>
                             <strong class="t-title">Top 12</strong>
-                            <span class="t-desc">out of 400 top Mobile App Developers in India, 2020</span>
+                            <span class="t-desc">Out of 400 top Mobile App Developers in India, 2020</span>
                         </div>
                     </div>
 
@@ -174,7 +153,7 @@
                 </div>
                 <div class="mb-cell mb-award mb-dark" data-mbtile="award">
                     <div class="mb-inner">
-                        <span class="mb-brand">Clutch</span>
+                        <img src="Images/Group 27.svg" alt="Clutch" class="mb-award-logo">
                         <span class="mb-stars">★★★★★</span>
                         <strong>Top B2B</strong>
                         <span>Providers in the Indian Emerging Tech Market for 2021</span>
@@ -185,52 +164,41 @@
                 </div>
                 <div class="mb-cell mb-award mb-medium" data-mbtile="award">
                     <div class="mb-inner">
-                        <span class="mb-gf">
-                            <svg viewBox="0 0 20 20" width="13" height="13"><rect width="20" height="20" rx="3" fill="#fff"/><text x="2" y="15" font-size="13" font-weight="900" fill="#6637c5" font-family="Arial,sans-serif">G</text></svg>
-                            GoodFirms
-                        </span>
+                        <img src="Images/image 9.svg" alt="GoodFirms" class="mb-award-logo">
                         <strong>Top Shopify</strong>
                         <span>Development Companies in 2019</span>
                     </div>
                 </div>
 
                 <!-- ROW 2 -->
-                 <div class="mb-cell mb-filler mb-dark" data-mbtile="filler"><div class="mb-inner"></div></div>
+                 <div class="mb-cell mb-filler" data-mbtile="filler"></div>
+
                 <div class="mb-cell mb-label" data-mbtile="label">
                     <div class="mb-inner">Attract</div>
                 </div>
-                <div class="mb-cell mb-ms mb-light" data-mbtile="microsoft">
+                <!-- Microsoft spans col 2-3 in row 2 -->
+                <div class="mb-cell mb-ms mb-light mb-ms-span2" data-mbtile="microsoft">
                     <div class="mb-inner">
-                        <div class="mb-ms-top">
-                            <div class="ms-squares-mobile">
-                                <span style="background:#f25022"></span><span style="background:#7fba00"></span>
-                                <span style="background:#00a4ef"></span><span style="background:#ffb900"></span>
-                            </div>
-                            <div>
-                                <p class="mb-ms-name">Microsoft</p>
-                                <small>Solutions Partner</small>
-                            </div>
-                        </div>
-                        <small class="mb-ms-cloud">Microsoft Cloud</small>
+                        <img src="Images/Group 40.svg" alt="Microsoft Solutions Partner" class="mb-ms-logo-img">
                     </div>
                 </div>
+                <!-- col 3 occupied by Microsoft span -->
                 <div class="mb-cell mb-label" data-mbtile="label">
                     <div class="mb-inner">Growth</div>
                 </div>
-               
 
                 <!-- ROW 3 -->
-                <div class="mb-cell mb-filler mb-dark" data-mbtile="filler"><div class="mb-inner"></div></div>
-                <div class="mb-cell mb-filler mb-dark" data-mbtile="filler"><div class="mb-inner"></div></div>
+                <div class="mb-cell mb-filler" data-mbtile="filler"></div>
+                <div class="mb-cell mb-filler" data-mbtile="filler"></div>
                 <div class="mb-cell mb-label" data-mbtile="label">
                     <div class="mb-inner">Strategy</div>
                 </div>
-                 <div class="mb-cell mb-award mb-medium-light" data-mbtile="award">
+                <div class="mb-cell mb-award mb-dark" data-mbtile="award">
                     <div class="mb-inner">
-                        <span class="mb-brand">Clutch</span>
+                        <img src="Images/Group 27.svg" alt="Clutch" class="mb-award-logo">
                         <span class="mb-stars">★★★★★</span>
                         <strong>Top 12</strong>
-                        <span>out of 400 top Mobile App Developers in India, 2020</span>
+                        <span>Out of 400 top Mobile App Developers in India, 2020</span>
                     </div>
                 </div>
             </div>
@@ -1172,4 +1140,4 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="script.js"></script>
 </body>
-</html>
+</html> 

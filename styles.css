@@ -237,7 +237,7 @@ p{
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(3, 1fr);
     /* Thin dark gap between cells — gives the "card mosaic" feel */
-    gap: 3px;
+    gap: 0px;
     background: #6637C5;
     flex: 1;
     width: 100%;
@@ -270,7 +270,7 @@ p{
    TILE COLOUR PALETTE — exact match to reference
    ══════════════════════════════════════════════ */
 
-/* Transform: soft lavender, spans 2 rows */
+/* Transform: soft lavender, row 1 only */
 .tile-transform {
     grid-row: span 1;
     background: #cbb8f9;
@@ -297,8 +297,8 @@ p{
 /* GoodFirms: darker purple, top-right rounded */
 .tile-goodfirms { background: #4a18a8; border-top-right-radius: 16px;height: 100%; }
 
-/* Attract: mid-lavender */
-.tile-attract  { background: #4F149A; border-bottom-left-radius: 16px; height: 100%;}
+/* Attract: dark purple (row 2 col 2) */
+.tile-attract  { background: #370f8a; height: 100%;border-bottom-left-radius: 16px; }
 .tile-attract .tile-inner {
     align-items: center;
     justify-content: center;
@@ -309,7 +309,7 @@ p{
 .tile-microsoft { background: #cbb8f9;}
 
 /* Growth: mid-lavender */
-.tile-growth   { background: #4F149A;height: 100%;border-bottom-left-radius: 16px; }
+.tile-growth   { background: #4F149A; height: 100%; }
 .tile-growth .tile-inner {
     align-items: center;
     justify-content: center;
@@ -321,22 +321,22 @@ p{
 .tile-filler1  { background: #6637C5; }
 .tile-filler2  { background: #6637C5; }
 
-/* Strategy: mid-lavender */
-.tile-strategy { background: #6637C5; }
+/* Strategy: medium purple (row 3 col 3) */
+.tile-strategy { background: #4F149A; height: 100%;border-bottom-left-radius: 16px; }
 .tile-strategy .tile-inner {
     align-items: center;
     justify-content: center;
     text-align: center;
 }
 
-/* Clutch Top 12: medium purple, bottom-right rounded */
-.tile-clutch2  { background: #4F149A; border-bottom-right-radius: 16px; height: 100%; }
+/* Clutch Top 12: dark purple, bottom-right rounded */
+.tile-clutch2  { background: #370f8a; border-bottom-right-radius: 16px; height: 100%; }
 
 /* ══════════════════════════════════════════════
    LABEL TILE TYPOGRAPHY
    ══════════════════════════════════════════════ */
 .label-text {
-    font-size: clamp(13px, 1.25vw, 19px);
+    font-size: clamp(14px, 1.4vw, 22px);
     font-weight: 700;
     color: #fff;
     letter-spacing: 0.01em;
@@ -345,91 +345,91 @@ p{
 /* ══════════════════════════════════════════════
    AWARD TILE TYPOGRAPHY
    ══════════════════════════════════════════════ */
-.tile-award .tile-inner { gap: 2px; color: #fff; }
+.tile-award .tile-inner { gap: 3px; color: #fff; }
 
 .t-brand {
     display: flex;
     align-items: center;
     gap: 6px;
     line-height: 1;
-    margin-bottom: 1px;
+    margin-bottom: 2px;
 }
-.clutch-svg {
-    width: clamp(50px, 5vw, 75px);
-    height: auto;
+/* Award logo images (Clutch, GoodFirms) — white filter so they show on dark tiles */
+.award-logo-img {
+    height: clamp(22px, 2.6vw, 40px);
+    width: auto;
     display: block;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
+
 .t-brand--gf {
-    font-size: clamp(10px, 0.95vw, 13px);
-    font-weight: 700;
-    color: #fff;
-}
-.gf-icon {
-    width: clamp(18px, 1.8vw, 26px);
-    height: auto;
-    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 0;
 }
 .t-stars {
-    font-size: clamp(8px, 0.7vw, 11px);
-    letter-spacing: 1.5px;
+    font-size: clamp(9px, 0.85vw, 14px);
+    letter-spacing: 2px;
     opacity: 0.85;
     display: block;
     margin-bottom: 2px;
 }
 .t-title {
-    font-size: clamp(20px, 2.1vw, 32px);
+    font-size: clamp(24px, 2.8vw, 28px);
     font-weight: 900;
     display: block;
     line-height: 1;
-    margin-bottom: 3px;
+    margin-bottom: 4px;
 }
 .t-desc {
-    font-size: clamp(9px, 0.8vw, 12px);
+    font-size: clamp(10px, 0.9vw, 14px);
     opacity: 0.88;
     line-height: 1.4;
 }
 
 /* ══════════════════════════════════════════════
-   MICROSOFT TILE
+   CROWDREVIEWS AWARD TILE
+   ══════════════════════════════════════════════ */
+.t-brand--cr {
+    display: block;
+    line-height: 1.1;
+    margin-bottom: 4px;
+}
+.cr-crowd {
+    font-size: clamp(14px, 1.5vw, 22px);
+    font-weight: 900;
+    color: #e85d04;
+    letter-spacing: -0.3px;
+}
+.cr-reviews {
+    font-size: clamp(14px, 1.5vw, 22px);
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.3px;
+}
+.cr-sub {
+    display: block;
+    font-size: clamp(7px, 0.65vw, 10px);
+    color: rgba(255,255,255,0.7);
+    font-weight: 400;
+    line-height: 1.3;
+    margin-top: 1px;
+}
+
+/* ══════════════════════════════════════════════
+   MICROSOFT TILE — image-based
    ══════════════════════════════════════════════ */
 .tile-microsoft .tile-inner {
-    color: #1a005e;
-    gap: 8px;
     justify-content: center;
-}
-.ms-logo-row {
-    display: flex;
     align-items: center;
-    gap: clamp(8px, 1vw, 14px);
 }
-.ms-squares-lg {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3px;
-    width: clamp(28px, 2.8vw, 44px);
-    height: clamp(28px, 2.8vw, 44px);
-    flex-shrink: 0;
-}
-.ms-squares-lg span { border-radius: 2px; }
-.ms-text { text-align: left; }
-.ms-name  {
-    font-size: clamp(15px, 1.55vw, 23px);
-    font-weight: 800;
-    margin: 0;
-    color: #1a005e;
-    line-height: 1.1;
-}
-.ms-role  {
-    font-size: clamp(8px, 0.8vw, 12px);
-    margin: 2px 0 0;
-    color: #2d0070;
-    font-weight: 500;
-}
-.ms-cloud {
-    font-size: clamp(8px, 0.78vw, 11px);
-    color: #2d0070;
-    margin: 0;
-    font-weight: 500;
+.ms-logo-img {
+    width: clamp(90px, 10vw, 155px);
+    height: auto;
+    object-fit: contain;
+    display: block;
+    /* SVG has dark fills — visible on lavender background, no filter needed */
 }
 
 /* ══════════════════════════════════════════════
@@ -466,16 +466,18 @@ p{
 
 @media (min-width: 768px) {
     /* Stagger each tile individually — left-to-right, top-to-bottom */
+    /* Row 1: Transform(col1) | Clutch1(col2) | Convert(col3) | GoodFirms(col4) */
     .tile-transform { animation: tileSlideLeft  0.75s cubic-bezier(0.22,1,0.36,1) 0.06s both; }
     .tile-clutch1   { animation: tileSlideDown  0.75s cubic-bezier(0.22,1,0.36,1) 0.14s both; }
     .tile-convert   { animation: tileSlideDown  0.75s cubic-bezier(0.22,1,0.36,1) 0.22s both; }
     .tile-goodfirms { animation: tileSlideRight 0.75s cubic-bezier(0.22,1,0.36,1) 0.30s both; }
-    .tile-attract   { animation: tileSlideLeft  0.75s cubic-bezier(0.22,1,0.36,1) 0.20s both; }
-    .tile-microsoft { animation: tileFadeScale  0.75s cubic-bezier(0.22,1,0.36,1) 0.28s both; }
-    .tile-growth    { animation: tileSlideRight 0.75s cubic-bezier(0.22,1,0.36,1) 0.36s both; }
-    .tile-filler1   { animation: tileSlideDown  0.75s cubic-bezier(0.22,1,0.36,1) 0.34s both; }
+    /* Row 2: filler | Attract(col2) | Microsoft(col3) | Growth(col4) */
+    .tile-filler2   { animation: tileSlideDown  0.75s cubic-bezier(0.22,1,0.36,1) 0.18s both; }
+    .tile-attract   { animation: tileSlideLeft  0.75s cubic-bezier(0.22,1,0.36,1) 0.24s both; }
+    .tile-microsoft { animation: tileFadeScale  0.75s cubic-bezier(0.22,1,0.36,1) 0.32s both; }
+    .tile-growth    { animation: tileSlideRight 0.75s cubic-bezier(0.22,1,0.36,1) 0.40s both; }
+    /* Row 3: filler | filler | Strategy(col3) | Clutch2(col4) */
     .tile-strategy  { animation: tileSlideDown  0.75s cubic-bezier(0.22,1,0.36,1) 0.42s both; }
-    .tile-filler2   { animation: tileSlideDown  0.75s cubic-bezier(0.22,1,0.36,1) 0.38s both; }
     .tile-clutch2   { animation: tileSlideRight 0.75s cubic-bezier(0.22,1,0.36,1) 0.50s both; }
 }
 
@@ -506,8 +508,8 @@ p{
     .mobile-badge-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(3, auto);
-        gap: 2px;
+        grid-template-rows: repeat(3, minmax(100px, 1fr));
+        gap: 0px;
         background: #6637c5;
         width: 100%;
     }
@@ -516,7 +518,12 @@ p{
     .mb-cell {
         position: relative;
         overflow: hidden;
-        min-height: 120px;
+        min-height: 100px;
+    }
+
+    /* Microsoft spans cols 2-3 in row 2 */
+    .mb-ms-span2 {
+        grid-column: span 1;
     }
 
     /* .mb-inner: animated content layer */
@@ -539,7 +546,7 @@ p{
     .mb-medium       { background: #4a18a8; }
     .mb-medium-light { background: #5522be; }
     .mb-light        { background: #cbb8f9; }
-    .mb-filler       { min-height: 46px; background : #6637c5}
+    .mb-filler       { background: #6637c5; }
 
     /* Label cells: centered bold text */
     .mb-label .mb-inner {
@@ -551,11 +558,14 @@ p{
         color: #fff;
     }
 
-    /* Outer rounded corners */
+    /* Outer rounded corners — child indices with new layout:
+       1=label, 2=clutch, 3=label, 4=goodfirms,
+       5=label(attract), 6=microsoft(span2), 7=label(growth),
+       8=filler, 9=filler, 10=label(strategy), 11=clutch12 */
     .mobile-badge-grid .mb-cell:nth-child(1)  { border-top-left-radius: 12px; }
     .mobile-badge-grid .mb-cell:nth-child(4)  { border-top-right-radius: 12px; }
-    .mobile-badge-grid .mb-cell:nth-child(9)  { border-bottom-left-radius: 12px; }
-    .mobile-badge-grid .mb-cell:nth-child(12) { border-bottom-right-radius: 12px; }
+    .mobile-badge-grid .mb-cell:nth-child(8)  { border-bottom-left-radius: 12px; }
+    .mobile-badge-grid .mb-cell:nth-child(11) { border-bottom-right-radius: 12px; }
 
     /* Award cells */
     .mb-award .mb-inner { color: #fff; gap: 1px; }
@@ -585,25 +595,24 @@ p{
     .mb-award .mb-inner strong { font-size: 16px; font-weight: 900; display: block; line-height: 1.05; }
     .mb-award .mb-inner > span { font-size: 6.5px; opacity: 0.88; line-height: 1.3; }
 
-    /* Microsoft mobile */
-    .mb-ms .mb-inner { color: #1a005e; gap: 5px; }
-    .mb-ms-top {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-    .ms-squares-mobile {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1.5px;
-        width: 18px;
+    /* Mobile award logo images — white filter so they show on dark tiles */
+    .mb-award-logo {
         height: 18px;
-        flex-shrink: 0;
+        width: auto;
+        display: block;
+        object-fit: contain;
+        margin-bottom: 2px;
+        filter: brightness(0) invert(1);
     }
-    .ms-squares-mobile span { border-radius: 1px; }
-    .mb-ms-name  { font-size: 11px; font-weight: 800; margin: 0; color: #1a005e; line-height: 1.1; }
-    .mb-ms .mb-inner small { font-size: 7px; display: block; color: #2d0070; line-height: 1.2; }
-    .mb-ms-cloud { font-size: 6.5px; color: #2d0070; }
+
+    /* Microsoft mobile — image-based, dark fills visible on lavender */
+    .mb-ms .mb-inner { justify-content: center; align-items: center; }
+    .mb-ms-logo-img {
+        width: clamp(80px, 32vw, 98px);
+        height: auto;
+        object-fit: contain;
+        display: block;
+    }
 
     /* Mobile load-in: staggered slide-up */
     @keyframes mbSlideIn {
@@ -619,12 +628,11 @@ p{
     .mb-cell:nth-child(4)  { animation-delay: 0.22s; }
     .mb-cell:nth-child(5)  { animation-delay: 0.17s; }
     .mb-cell:nth-child(6)  { animation-delay: 0.23s; }
-    .mb-cell:nth-child(7)  { animation-delay: 0.29s; }
-    .mb-cell:nth-child(8)  { animation-delay: 0.35s; }
+    .mb-cell:nth-child(7)  { animation-delay: 0.30s; }
+    .mb-cell:nth-child(8)  { animation-delay: 0.32s; }
     .mb-cell:nth-child(9)  { animation-delay: 0.36s; }
-    .mb-cell:nth-child(10) { animation-delay: 0.42s; }
-    .mb-cell:nth-child(11) { animation-delay: 0.40s; }
-    .mb-cell:nth-child(12) { animation-delay: 0.46s; }
+    .mb-cell:nth-child(10) { animation-delay: 0.40s; }
+    .mb-cell:nth-child(11) { animation-delay: 0.46s; }
 
     /* Mobile tile animation states (JS-driven) — moved to global scope below */
 
@@ -786,15 +794,22 @@ p{
 
 
 .portfolio-item {
+    opacity: 1;
+    animation: fadeInUp 0.6s ease-out both;
     position: relative;
     border-radius: 16px;
     overflow: hidden;
     min-height: 260px;
     padding: 0;
-    background-size: 100%;
+    background-size: cover;
     background-position: center;
     cursor: pointer;
     transition: transform 0.3s;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 /* hover handled per breakpoint below */
