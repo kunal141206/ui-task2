@@ -5,10 +5,10 @@
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   // ── Timing constants ──────────────────────────────────────
-  var TRANS       = 'transform 0.72s cubic-bezier(0.4,0,0.2,1), opacity 0.60s ease';
+  var TRANS = 'transform 0.95s cubic-bezier(0.22,1,0.36,1), opacity 0.75s cubic-bezier(0.22,1,0.36,1)';
   var SWAP_DELAY  = 380;   // ms: wait for exit animation before swapping content
-  var WAVE_EVERY  = 4000;  // ms: interval between animation waves
-  var STAGGER     = 200;   // ms: stagger delay between tiles in same wave
+  var WAVE_EVERY  = 2000;  // ms: interval between animation waves
+  var STAGGER     = 110;   // ms: stagger delay between tiles in same wave
   var LOAD_SETTLE = 1500;  // ms: wait for page-load CSS animations to finish
 
   // ── Content pools ─────────────────────────────────────────
@@ -16,17 +16,23 @@
     'Transform', 'Convert', 'Growth', 'Strategy', 'Attract',
     'Innovate',  'Elevate', 'Scale',  'Deliver',  'Engage', 'Accelerate'
   ];
-  var labelCursors = {};
 
-  function nextLabelFor(key) {
-    if (labelCursors[key] === undefined) {
-      var idx = LABELS.indexOf(key);
-      labelCursors[key] = (idx >= 0 ? idx + 1 : 0);
-    }
-    var val = LABELS[labelCursors[key] % LABELS.length];
-    labelCursors[key]++;
-    return val;
-  }
+var activeLabelByKey = {};
+function nextLabelFor(key) {
+  // Gather labels currently visible on all OTHER tiles
+  var used = Object.keys(activeLabelByKey)
+    .filter(function(k) { return k !== key; })
+    .map(function(k) { return activeLabelByKey[k]; });
+  // Pick from labels not currently shown anywhere and not the current tile's own label
+  var pool = LABELS.filter(function(l) {
+    return used.indexOf(l) === -1 && l !== activeLabelByKey[key];
+  });
+  if (!pool.length) pool = LABELS.filter(function(l) { return l !== activeLabelByKey[key]; });
+  if (!pool.length) pool = LABELS;
+  var val = pool[Math.floor(Math.random() * pool.length)];
+  activeLabelByKey[key] = val;
+  return val;
+}
 
   var AWARDS = [
     { type: 'clutch',       title: 'Top B2B',    desc: 'Providers in the Indian Emerging Tech Market for 2021' },
@@ -89,14 +95,20 @@
   function randItem(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
   // ── Enable transitions on all tile inners ─────────────────
-  function enableTransitions() {
-    document.querySelectorAll('.badge-cell .tile-inner').forEach(function (el) {
-      el.style.transition = TRANS;
-    });
-    document.querySelectorAll('.mb-cell .mb-inner').forEach(function (el) {
-      el.style.transition = TRANS;
-    });
-  }
+function enableTransitions() {
+  // Seed initial label state from DOM
+  document.querySelectorAll('.badge-cell[data-tiletype="label"]').forEach(function(cell) {
+    var key = cell.dataset.tilekey;
+    var inner = cell.querySelector('.tile-inner');
+    if (key && inner) activeLabelByKey[key] = inner.textContent.trim();
+  });
+  document.querySelectorAll('.badge-cell .tile-inner').forEach(function (el) {
+    el.style.transition = TRANS;
+  });
+  document.querySelectorAll('.mb-cell .mb-inner').forEach(function (el) {
+    el.style.transition = TRANS;
+  });
+}
 
   // ── Core swap function — works for both desktop and mobile ──
   // innerSel: '.tile-inner' or '.mb-inner'
@@ -158,26 +170,23 @@
   }
 
   // ── Swap a single mobile tile ─────────────────────────────
-  function swapMobileTile(cell) {
-    var tileType = cell.dataset.mbtile;
-    var updateFn = null;
-
-    if (tileType === 'label') {
-      updateFn = function (inner) {
-        var current = inner.textContent.trim();
-        var next = current;
-        var attempts = 0;
-        while (next === current && attempts < 8) {
-          next = LABELS[Math.floor(Math.random() * LABELS.length)];
-          attempts++;
-        }
-        inner.textContent = next;
-      };
-    }
-    // award/microsoft/filler on mobile: motion only
-
-    swapCell(cell, '.mb-inner', DIRS_MOBILE, updateFn);
+function swapMobileTile(cell) {
+  var tileType = cell.dataset.mbtile;
+  var updateFn = null;
+  if (tileType === 'label') {
+    updateFn = function (inner) {
+      var current = inner.textContent.trim();
+      var pool = LABELS.filter(function(l) { return l !== current; });
+      inner.textContent = pool[Math.floor(Math.random() * pool.length)];
+    };
+  } else if (tileType === 'award') {
+    updateFn = function (inner) {
+      var award = AWARDS[Math.floor(Math.random() * AWARDS.length)];
+      inner.innerHTML = buildAwardHTML(award);
+    };
   }
+  swapCell(cell, '.mb-inner', DIRS_MOBILE, updateFn);
+}
 
   // ── Desktop animation wave ────────────────────────────────
   function runDesktopWave() {
@@ -195,38 +204,33 @@
     }
 
     // Pick 2, 3, or 4 tiles per wave
-    var clusterSize = Math.random() < 0.45 ? 2 : (Math.random() < 0.65 ? 3 : 4);
-    var cluster = animatable.slice(0, clusterSize);
+    // var clusterSize = Math.random() < 0.45 ? 2 : (Math.random() < 0.65 ? 3 : 4);
+    // var cluster = animatable.slice(0, clusterSize);
 
-    cluster.forEach(function (cell, i) {
-      setTimeout(function () { swapDesktopTile(cell); }, i * STAGGER);
-    });
+    animatable.forEach(function (cell, i) {
+  setTimeout(function () { swapDesktopTile(cell); }, i * STAGGER);
+});
 
     // Occasionally also pulse the Microsoft tile (motion-only)
-    if (Math.random() < 0.35) {
-      var ms = document.querySelector('.tile-microsoft');
-      if (ms && !ms._swapping) {
-        setTimeout(function () { swapDesktopTile(ms); }, clusterSize * STAGGER + 150);
-      }
+    var ms = document.querySelector('.tile-microsoft');
+    if (ms && !ms._swapping) {
+    setTimeout(function () { swapDesktopTile(ms); }, animatable.length * STAGGER + 80);
     }
   }
 
   // ── Mobile animation wave ─────────────────────────────────
-  function runMobileWave() {
-    var labels = Array.from(document.querySelectorAll('.mb-cell[data-mbtile="label"]'));
-
-    // Fisher-Yates shuffle
-    for (var i = labels.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = labels[i]; labels[i] = labels[j]; labels[j] = tmp;
-    }
-
-    // Animate 2 or 3 label tiles per wave (was 1, too slow)
-    var clusterSize = Math.random() < 0.5 ? 3 : 4;
-    labels.slice(0, clusterSize).forEach(function (cell, i) {
-      setTimeout(function () { swapMobileTile(cell); }, i * (STAGGER + 60));
-    });
+function runMobileWave() {
+  var all = Array.from(document.querySelectorAll('.mb-cell[data-mbtile="label"], .mb-cell[data-mbtile="award"]'));
+  // Fisher-Yates shuffle
+  for (var i = all.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = all[i]; all[i] = all[j]; all[j] = tmp;
   }
+  // Animate all of them
+  all.forEach(function (cell, i) {
+    setTimeout(function () { swapMobileTile(cell); }, i * STAGGER);
+  });
+}
 
   // ── Bootstrap ─────────────────────────────────────────────
   var _waveInterval = null;

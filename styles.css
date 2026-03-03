@@ -212,8 +212,8 @@ p{
 }
 
 @keyframes heroTextIn {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
+   from { opacity: 0; transform: translateY(32px) scale(0.98); }
+to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .mobile-title { display: none; }
@@ -440,18 +440,18 @@ p{
    ══════════════════════════════════════════════ */
 
 /* -- Exit -- */
-.ta-exit-left  .tile-inner { transform: translateX(-104%) !important; opacity: 0 !important; }
-.ta-exit-right .tile-inner { transform: translateX(104%)  !important; opacity: 0 !important; }
-.ta-exit-up    .tile-inner { transform: translateY(-104%) !important; opacity: 0 !important; }
-.ta-exit-down  .tile-inner { transform: translateY(104%)  !important; opacity: 0 !important; }
-.ta-exit-fade  .tile-inner { transform: scale(0.84) !important; opacity: 0 !important; }
+.ta-exit-left  .tile-inner { transform: translateX(-105%) !important; opacity: 0 !important; }
+.ta-exit-right .tile-inner { transform: translateX(105%)  !important; opacity: 0 !important; }
+.ta-exit-up    .tile-inner { transform: translateY(-105%) !important; opacity: 0 !important; }
+.ta-exit-down  .tile-inner { transform: translateY(105%)  !important; opacity: 0 !important; }
+.ta-exit-fade  .tile-inner { transform: scale(0.96) !important; opacity: 0 !important; }
 
 /* -- Enter-from (no transition: snap into start position) -- */
-.ta-from-right .tile-inner { transform: translateX(104%)  !important; opacity: 0 !important; }
-.ta-from-left  .tile-inner { transform: translateX(-104%) !important; opacity: 0 !important; }
-.ta-from-down  .tile-inner { transform: translateY(104%)  !important; opacity: 0 !important; }
-.ta-from-up    .tile-inner { transform: translateY(-104%) !important; opacity: 0 !important; }
-.ta-from-fade  .tile-inner { transform: scale(0.84) !important; opacity: 0 !important; }
+.ta-from-right .tile-inner { transform: translateX(105%)  !important; opacity: 0 !important; }
+.ta-from-left  .tile-inner { transform: translateX(-105%) !important; opacity: 0 !important; }
+.ta-from-down  .tile-inner { transform: translateY(105%)  !important; opacity: 0 !important; }
+.ta-from-up    .tile-inner { transform: translateY(-105%) !important; opacity: 0 !important; }
+.ta-from-fade  .tile-inner { transform: scale(0.96) !important; opacity: 0 !important; }
 
 /* ══════════════════════════════════════════════
    PAGE-LOAD ENTRANCE ANIMATIONS
@@ -662,16 +662,16 @@ p{
 
 /* ── Mobile tile animation states (JS-driven) — global ── */
 /* EXIT: slide the mb-inner fully out of the cell */
-.ma-exit-left  .mb-inner { transform: translateX(-110%) !important; opacity: 0 !important; }
-.ma-exit-right .mb-inner { transform: translateX(110%)  !important; opacity: 0 !important; }
-.ma-exit-up    .mb-inner { transform: translateY(-110%) !important; opacity: 0 !important; }
-.ma-exit-down  .mb-inner { transform: translateY(110%)  !important; opacity: 0 !important; }
+.ma-exit-left  .mb-inner { transform: translateX(-105%) !important; opacity: 0 !important; }
+.ma-exit-right .mb-inner { transform: translateX(105%)  !important; opacity: 0 !important; }
+.ma-exit-up    .mb-inner { transform: translateY(-105%) !important; opacity: 0 !important; }
+.ma-exit-down  .mb-inner { transform: translateY(105%)  !important; opacity: 0 !important; }
 
 /* ENTER-FROM: snap mb-inner to off-screen start before sliding in */
-.ma-from-right .mb-inner { transform: translateX(110%)  !important; opacity: 0 !important; }
-.ma-from-left  .mb-inner { transform: translateX(-110%) !important; opacity: 0 !important; }
-.ma-from-down  .mb-inner { transform: translateY(110%)  !important; opacity: 0 !important; }
-.ma-from-up    .mb-inner { transform: translateY(-110%) !important; opacity: 0 !important; }
+.ma-from-right .mb-inner { transform: translateX(105%)  !important; opacity: 0 !important; }
+.ma-from-left  .mb-inner { transform: translateX(-105%) !important; opacity: 0 !important; }
+.ma-from-down  .mb-inner { transform: translateY(105%)  !important; opacity: 0 !important; }
+.ma-from-up    .mb-inner { transform: translateY(-105%) !important; opacity: 0 !important; }
 
 
 /* ── prefers-reduced-motion: disable all animations ── */
@@ -1273,7 +1273,7 @@ p{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
-    padding: 20px;
+    padding: 0;
 }
 
 .sector-card {
@@ -1286,6 +1286,8 @@ p{
     padding: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
     text-align: left;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .sector-card--grey{
@@ -1306,7 +1308,7 @@ p{
     height: 70px;
     border-radius: 10px;
     flex-shrink: 0;
-    background-size: contain;
+    background-size: cover;
     background-position: center;
 }
 
@@ -2290,7 +2292,7 @@ p{
 
     .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
     .portfolio-grid1 { grid-template-columns: repeat(2, 1fr); }
-    .sectors-grid { grid-template-columns: repeat(4, 1fr); max-width: 700px; }
+    .sectors-grid { grid-template-columns: repeat(4, 1fr); }
     .standout-grid { grid-template-columns: repeat(3, 1fr); }
     .process-grid { grid-template-columns: repeat(2, 1fr); }
     .tech-grid { grid-template-columns: repeat(4, 1fr); }
@@ -2433,8 +2435,22 @@ p{
     .sectors-section h2 { font-size: 32px; }
     .sectors-grid {
         grid-template-columns: repeat(4, 1fr);
-        max-width: 1200px;
         gap: 20px;
+        padding: 20px 0;
+    }
+    .sector-thumb {
+        width: 70px;
+        height: 70px;
+    }
+    .sector-card {
+        padding: 12px;
+        gap: 12px;
+    }
+    .sector-card span {
+        font-size: 15px;
+    }
+    .sector-standout-banner {
+        grid-column: 2 / 5;
     }
     .sector-item p { font-size: 13px; }
 
@@ -2651,6 +2667,25 @@ p{
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
+
+    .sectors-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+    .sector-standout-banner {
+        grid-column: 1 / 3;
+    }
+    .sector-thumb {
+        width: 54px;
+        height: 54px;
+    }
+    .sector-card {
+        padding: 10px;
+        gap: 8px;
+    }
+    .sector-card span {
+        font-size: 13px;
+    }
     /* Experiences grid — same 3-col layout as desktop */
     .portfolio-grid {
         display: grid;
@@ -2713,6 +2748,9 @@ p{
 /* ── iPad Pro (1024px–1366px): hide description, always show work-links ── */
 @media (min-width: 1024px) and (max-width: 1366px) {
 
+    .sector-standout-banner {
+    grid-column: 2 / 5;
+}
     /* 1. Hide the description paragraph in both grids */
     .portfolio-item .hover-elem > p,
     .portfolio-grid--stories .portfolio-item .hover-elem > p {
