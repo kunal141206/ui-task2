@@ -736,6 +736,143 @@ function createSlider(options) {
     });
 }
 
+// After the existing createSlider function, add this:
+let slidersInitialized = false;
+
+function initMobileSliders() {
+    if (window.innerWidth >= 1024) return;
+    if (slidersInitialized) return;
+
+    // Your existing preload + two createSlider calls here
+   (function preloadSliderImages() {
+        var imgs = [
+            'Images/top_software_experts-_services.webp',
+            'Images/top_software_experts_services_near_me.webp',
+            'Images/best_software_experts_near_me.webp',
+            'Images/best_software_expert_services_near_me.webp',
+            'Images/top_it_consulting_agency.webp',
+            'Images/best_it_consulting_agency.webp',
+            'Images/best_it_consulting_services.webp',
+            'Images/top_it_consulting_services.webp'
+        ];
+        imgs.forEach(function(src) {
+            var img = new Image();
+            img.src = src;
+        });
+    })();
+
+    createSlider({
+        trackId: 'portfolioTrack',
+        slides: [
+            {
+                cls: 'healthcare-item',
+                title: 'Healthcare Research Solution',
+                desc: 'User-friendly health based applications for clinical trial management, streamlining data access and collaboration.',
+                links: [
+                    { label: 'Dental Practise MarketPlace',    url: 'https://www.keyideasinfotech.com/portfolio/marketplace-for-dental-practice-and-dentists/' },
+                    { label: 'Medical UI/UX Solution',         url: 'https://www.keyideasinfotech.com/portfolio/medical-ui-designer-healthcare-ux-designer/' },
+                    { label: 'Pharma Research Development',    url: 'https://www.keyideasinfotech.com/portfolio/php-based-website-design-development-for-a-medicine-research-development-company/' },
+                    { label: 'Health and Wellness Platform',   url: 'https://www.keyideasinfotech.com/portfolio/health-and-wellness-website-app/' }
+                ]
+            },
+            {
+                cls: 'jewelry-item',
+                title: 'Advanced Jewelry Solutions',
+                desc: 'Explore innovative solutions featuring custom designs, certified quality, and enhanced shopping experiences.',
+                links: [
+                    { label: 'Jewelry E-Commerce Los Angeles', url: 'https://www.keyideasinfotech.com/portfolio/jewelry-ecommerce-los-angeles/' },
+                    { label: 'Diamond Ring-Builder Melbourne', url: 'https://www.keyideasinfotech.com/portfolio/diamond-ring-builder-melbourne-jeweller/' },
+                    { label: 'Jewelry Website Chicago',        url: 'https://www.keyideasinfotech.com/portfolio/large-jewelry-website-ecommerce-chicago/' }
+                ]
+            },
+            {
+                cls: 'travel-item',
+                title: 'Travel & Hospitality',
+                desc: 'Platforms that simplify booking, enhance customer experiences, and streamline operations for the travel industry.',
+                links: [
+                    { label: 'Comprehensive Travel App',    url: 'https://www.keyideasinfotech.com/portfolio/indian-rail-info-metro-travel-app-hotfoot/' },
+                    { label: 'Hospitality Management System', url: 'https://www.keyideasinfotech.com/portfolio/wordpress-website-development-leading-hospitality-group-chicago/' },
+                    { label: 'Travel and Booking System',   url: 'https://www.keyideasinfotech.com/portfolio/asp-net-mvc-web-development-best-ui-ux-design-travel-hotel-vacation-agency-canada/' },
+                    { label: 'Tourism Management Solution', url: 'https://www.keyideasinfotech.com/portfolio/tourism-website-design-development-seattle/' }
+                ]
+            },
+            {
+                cls: 'enterprise-item',
+                title: 'Enterprise Software',
+                desc: 'Powerful tools designed to integrate processes, boost productivity, and scale your business seamlessly.',
+                links: [
+                    { label: 'Warehouse Management System',      url: 'https://www.keyideasinfotech.com/portfolio/warehouse-management-system-ecommerce/' },
+                    { label: 'Clinical Research Mobile Application', url: 'https://www.keyideasinfotech.com/portfolio/clinical-trial-pharma-healthcare-app/' },
+                    { label: 'Transforming Energy Sector',        url: 'https://www.keyideasinfotech.com/portfolio/energy-industry-website-denmark/' },
+                    { label: 'Conference Management System',      url: 'https://www.keyideasinfotech.com/portfolio/event-and-conference-management-software/' }
+                ]
+            }
+        ]
+    });
+
+    createSlider({
+        trackId: 'storiesTrack',
+        slides: [
+            {
+                cls: 'realestate-item',
+                title: 'Real Estate & Property Management',
+                desc: 'Smart real estate platforms to manage property portfolios and maximize investor returns.',
+                links: [
+                    { label: 'Real Estate Management',           url: 'https://www.keyideasinfotech.com/portfolio/large-real-estate-website-design/' },
+                    { label: 'New York Real Estate Business',    url: 'https://www.keyideasinfotech.com/portfolio/responsive-web-development-using-bootstrap-for-real-estate-business-owner-in-new-york/' },
+                    { label: 'Property Management Solution',     url: 'https://www.keyideasinfotech.com/portfolio/real-estate-property-management-wordpress-website-san-francisco/' },
+                    { label: 'USA Luxury Real Estate Experience',url: 'https://www.keyideasinfotech.com/portfolio/angularjs-development-usa-luxury-real-estate-web-listing-website/' }
+                ]
+            },
+            {
+                cls: 'ecommerce-item',
+                title: 'E-Commerce Platform',
+                desc: 'Seamless shopping experiences across devices with intelligent product discovery and secure payments.',
+                links: [
+                    { label: 'Empowering Food and Business Ecommerce', url: 'https://www.keyideasinfotech.com/portfolio/website-design-food-products-website-beverage-industry/' },
+                    { label: 'Sporting Goods B2B Ecommerce',           url: 'https://www.keyideasinfotech.com/portfolio/american-sporting-goods-company-headless-b2b-ecommerce-znode/' },
+                    { label: 'Electronics Shopify Store',              url: 'https://www.keyideasinfotech.com/portfolio/shopify-electronic-and-gadgets-store-development/' }
+                ]
+            },
+            {
+                cls: 'fintech-item',
+                title: 'Financial Fintech Solutions',
+                desc: 'Secure, scalable financial technology solutions that drive innovation and enhance digital banking.',
+                links: [
+                    { label: 'Fintech UI/UX Development',      url: 'https://www.keyideasinfotech.com/portfolio/fintech-and-mobile-app-ui-designer/' },
+                    { label: 'Financial Advisory Platform',    url: 'https://www.keyideasinfotech.com/portfolio/wordpress-cms-development-company-business-finance-solution-pennsylvania-usa/' },
+                    { label: 'Banking Services Platform',      url: 'https://www.keyideasinfotech.com/portfolio/dynamic-website-development-in-wordpress-php-for-banking-company-in-new-york/' },
+                    { label: 'Insurance Invoicing Application',url: 'https://www.keyideasinfotech.com/portfolio/mobile-invoice-app-restoration-insurance-industry/' }
+                ]
+            },
+            {
+                cls: 'construction-item',
+                title: 'Construction & Home Services',
+                desc: 'Digital transformation for the construction industry with project tracking and client portals.',
+                links: [
+                    { label: 'Home Repair & Remodeling Platform',   url: 'https://www.keyideasinfotech.com/portfolio/home-repair-remodelling-experts-website-design/' },
+                    { label: 'Revolutionizing Remodelling Experience', url: 'https://www.keyideasinfotech.com/portfolio/asp-net-based-home-remodeling-website-design-development-for-mechanicsburg-pa-client/' },
+                    { label: 'Renovation Management Solution',       url: 'https://www.keyideasinfotech.com/portfolio/wordpress-website-development-php-kitchen-bathroom-renovation-australia/' }
+                ]
+            }
+        ]
+    });
+    
+    slidersInitialized = true;
+}
+
+// Initial load
+document.addEventListener('DOMContentLoaded', initMobileSliders);
+
+// Handle resize (desktop → mobile)
+window.addEventListener('resize', () => {
+    if (window.innerWidth < 1024) {
+        initMobileSliders();
+    } else {
+        slidersInitialized = false; // allow re-init if resized back
+    }
+});
+
 // Only init sliders on mobile
 // Wrapped in DOMContentLoaded so the DOM is ready and slideWidth() returns correct values
 document.addEventListener('DOMContentLoaded', function() {
