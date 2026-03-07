@@ -46,14 +46,25 @@ function nextLabelFor(key) {
     { type: 'crowdreviews', title: 'Top 10',      desc: 'Web Development Company' },
     { type: 'clutch',       title: 'Top 1000',    desc: 'B2B Companies 2018' }
   ];
-  var awardCursors = {};
+ var activeAwardByKey = {};
 
-  function nextAwardFor(key) {
-    if (awardCursors[key] === undefined) awardCursors[key] = (key === 'clutch2' ? 2 : 0);
-    var award = AWARDS[awardCursors[key] % AWARDS.length];
-    awardCursors[key]++;
-    return award;
-  }
+function nextAwardFor(key) {
+  // Collect award titles currently visible on other award tiles
+  var usedTitles = Object.keys(activeAwardByKey)
+    .filter(function(k) { return k !== key; })
+    .map(function(k) { return activeAwardByKey[k]; });
+
+  // Pick an award whose title is not already shown anywhere and not the current tile's own
+  var pool = AWARDS.filter(function(a) {
+    return usedTitles.indexOf(a.title) === -1 && a.title !== activeAwardByKey[key];
+  });
+  if (!pool.length) pool = AWARDS.filter(function(a) { return a.title !== activeAwardByKey[key]; });
+  if (!pool.length) pool = AWARDS;
+
+  var award = pool[Math.floor(Math.random() * pool.length)];
+  activeAwardByKey[key] = award.title;
+  return award;
+}
 
   var CLUTCH_IMG = '<img src="Images/Group 27.svg" alt="Clutch" class="award-logo-img">';
   var GF_IMG     = '<img src="Images/image 9.svg" alt="GoodFirms" class="award-logo-img">';
@@ -96,16 +107,27 @@ function nextLabelFor(key) {
 
   // ── Enable transitions on all tile inners ─────────────────
 function enableTransitions() {
-  // Seed initial label state from DOM
+  // Seed label state from DOM
   document.querySelectorAll('.badge-cell[data-tiletype="label"]').forEach(function(cell) {
     var key = cell.dataset.tilekey;
     var inner = cell.querySelector('.tile-inner');
     if (key && inner) activeLabelByKey[key] = inner.textContent.trim();
   });
-  document.querySelectorAll('.badge-cell .tile-inner').forEach(function (el) {
+
+  // ADD: Seed award state from DOM
+  document.querySelectorAll('.badge-cell[data-tiletype="award"]').forEach(function(cell) {
+    var key = cell.dataset.tilekey;
+    var inner = cell.querySelector('.tile-inner');
+    if (key && inner) {
+      var titleEl = inner.querySelector('.t-title');
+      if (titleEl) activeAwardByKey[key] = titleEl.textContent.trim();
+    }
+  });
+
+  document.querySelectorAll('.badge-cell .tile-inner').forEach(function(el) {
     el.style.transition = TRANS;
   });
-  document.querySelectorAll('.mb-cell .mb-inner').forEach(function (el) {
+  document.querySelectorAll('.mb-cell .mb-inner').forEach(function(el) {
     el.style.transition = TRANS;
   });
 }
@@ -251,7 +273,7 @@ function runMobileWave() {
       _waveInterval = setInterval(runDesktopWave, WAVE_EVERY);
     } else {
       setTimeout(runMobileWave, 500);
-      _waveInterval = setInterval(runMobileWave, WAVE_EVERY - 500);
+      _waveInterval = setInterval(runMobileWave, 1300);
     }
   }
 
@@ -1014,3 +1036,146 @@ if (window.innerWidth < 1024) {
         }
     });
 })();
+
+/* ======================================================
+   TECH STACK FILTER TABS
+   ====================================================== */
+document.addEventListener('DOMContentLoaded', function () {
+    var tftBtns = document.querySelectorAll('.tft-btn');
+    var tftPanels = document.querySelectorAll('.tft-panel');
+
+    tftBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var cat = btn.getAttribute('data-cat');
+            tftBtns.forEach(function (b) { b.classList.remove('active'); });
+            tftPanels.forEach(function (p) { p.classList.remove('active'); });
+            btn.classList.add('active');
+            var panel = document.querySelector('.tft-panel[data-panel="' + cat + '"]');
+            if (panel) panel.classList.add('active');
+        });
+    });
+});
+
+/* ======================================================
+   FAQ REVIEW TAB SWITCHER
+   ====================================================== */
+document.addEventListener('DOMContentLoaded', function () {
+    var frnBtns = document.querySelectorAll('.frn-btn');
+    var frcTexts = document.querySelectorAll('.frc-text');
+
+    frnBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var target = btn.getAttribute('data-review');
+            frnBtns.forEach(function (b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            frcTexts.forEach(function (t) {
+                if (t.getAttribute('data-review') === target) {
+                    t.classList.remove('hidden');
+                } else {
+                    t.classList.add('hidden');
+                }
+            });
+        });
+    });
+});
+
+/* ======================================================
+   VIEW REVIEWS TOGGLE
+   ====================================================== */
+document.addEventListener('DOMContentLoaded', function () {
+    var viewLabel = document.getElementById('faqViewLabel');
+    var navBack   = document.getElementById('faqNavBack');
+    var reviewNav = document.getElementById('faqReviewNav');
+
+    if (viewLabel && reviewNav) {
+        viewLabel.addEventListener('click', function () {
+            reviewNav.classList.remove('hidden');
+            // Keep label visible, just disable click after expand
+            viewLabel.style.pointerEvents = 'none';
+        });
+    }
+    if (navBack && reviewNav) {
+        navBack.addEventListener('click', function () {
+            reviewNav.classList.add('hidden');
+            viewLabel.style.pointerEvents = '';
+        });
+    }
+});
+/* ======================================================
+   RESPONSIVE SPRITE RESCALER
+   Scales every .pill-sprite background-size and
+   background-position proportionally to the current
+   viewport, matching the CSS breakpoints exactly.
+   Uses window.innerWidth so hidden panels are handled
+   correctly — no offsetWidth = 0 skipping issues.
+   ====================================================== */
+(function () {
+  'use strict';
+
+  // Base design cell size (desktop inline-style values assume this)
+  var BASE_W = 220;
+  var BASE_H = 120;
+
+  /* Mirror the CSS breakpoints for pill-sprite width exactly */
+  function getTargetCellW() {
+    var w = window.innerWidth;
+    if (w <= 420)  return 108;
+    if (w <= 600)  return 130;
+    if (w <= 768)  return 150;
+    if (w <= 1024) return 180;
+    if (w <= 1100) return 165;
+    if (w <= 1280) return 190;
+    return BASE_W; // full desktop size — no scaling needed
+  }
+
+  function rescaleSprites() {
+    var cellW = getTargetCellW();
+    var sx    = cellW / BASE_W;
+    var sy    = sx; // sprites use uniform scale (same ratio for x and y)
+
+    document.querySelectorAll('.pill-sprite').forEach(function (el) {
+      // Cache the original inline values once, before any modification
+      var origSize = el.getAttribute('data-orig-bgsize');
+      var origPos  = el.getAttribute('data-orig-bgpos');
+
+      if (!origSize) {
+        // el.style.* returns the raw inline attribute value — always the
+        // original because hidden panels are never modified before caching
+        origSize = el.style.backgroundSize;
+        origPos  = el.style.backgroundPosition;
+        if (!origSize || !origPos) return; // no inline sprite data
+        el.setAttribute('data-orig-bgsize', origSize);
+        el.setAttribute('data-orig-bgpos',  origPos);
+      }
+
+      // Parse "880px 360px" → [880, 360]
+      var sz  = origSize.replace(/px/g, '').trim().split(/\s+/).map(Number);
+      var pos = origPos.replace(/px/g,  '').trim().split(/\s+/).map(Number);
+      if (sz.length !== 2 || pos.length !== 2) return;
+
+      el.style.backgroundSize     = Math.round(sz[0]  * sx) + 'px ' +
+                                    Math.round(sz[1]  * sy) + 'px';
+      el.style.backgroundPosition = Math.round(pos[0] * sx) + 'px ' +
+                                    Math.round(pos[1] * sy) + 'px';
+    });
+  }
+
+  // Debounced resize so we're not thrashing on every pixel change
+  var _resizeTimer;
+  function onResize() {
+    clearTimeout(_resizeTimer);
+    _resizeTimer = setTimeout(rescaleSprites, 60);
+  }
+
+  window.addEventListener('resize', onResize);
+  window.addEventListener('load',   rescaleSprites);
+
+  document.addEventListener('DOMContentLoaded', function () {
+    rescaleSprites(); // initial scale on parse complete
+
+    // Re-run immediately when a tab is clicked (panel just became visible)
+    document.querySelectorAll('.tft-btn').forEach(function (btn) {
+      btn.addEventListener('click', rescaleSprites);
+    });
+  });
+}());
